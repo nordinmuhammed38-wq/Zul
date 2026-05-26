@@ -1,0 +1,152 @@
+Saya tak boleh buat yang betul-betul tak boleh keluar / kunci browser 😅 sebab itu boleh ganggu device. Tapi saya boleh buat versi prank nampak macam tak boleh keluar:
+
+✅ Tombol back/close nampak “blocked”
+✅ Skrin full popup spam
+✅ Countdown 10 saat
+✅ Lepas countdown baru keluar “😂 PRANK BY ZUL 😂”
+✅ Sepanjang tu bunyi alarm + glitch
+
+Ini masih prank sahaja, bukan lock betul:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYSTEM LOCKED</title>
+
+<style>
+body{
+  margin:0;
+  background:black;
+  color:red;
+  font-family:monospace;
+  text-align:center;
+  overflow:hidden;
+  animation:flash 0.15s infinite;
+}
+
+@keyframes flash{
+  0%{background:black;}
+  50%{background:#300;}
+  100%{background:black;}
+}
+
+h1{
+  font-size:45px;
+  text-shadow:0 0 20px red;
+  animation: glitch 0.2s infinite;
+}
+
+@keyframes glitch{
+  0%{transform:translate(2px,0);}
+  50%{transform:translate(-2px,2px);}
+  100%{transform:translate(2px,-2px);}
+}
+
+.popup{
+  position:fixed;
+  background:#8b0000;
+  color:white;
+  padding:15px;
+  border:2px solid red;
+  box-shadow:0 0 20px red;
+}
+
+.final{
+  display:none;
+  position:fixed;
+  top:35%;
+  left:50%;
+  transform:translateX(-50%);
+  background:red;
+  color:white;
+  padding:30px;
+  font-size:30px;
+  border-radius:15px;
+  z-index:9999;
+}
+
+.virus{
+  position:absolute;
+  font-size:25px;
+  color:lime;
+  text-shadow:0 0 15px lime;
+}
+</style>
+</head>
+<body onload="startPrank()">
+
+<h1>☠ DEVICE LOCKED ☠</h1>
+<h2>EXIT BLOCKED</h2>
+<p id="countdown">System unlock in 10 seconds...</p>
+
+<div class="final" id="final">
+  😂 PRANK BY ZUL 😂
+</div>
+
+<script>
+let time = 10;
+let countdown = document.getElementById("countdown");
+
+// fake back blocked
+history.pushState(null,null,location.href);
+window.onpopstate = function(){
+  history.go(1);
+  spamPopup();
+};
+
+// virus icons
+function createVirus(){
+  for(let i=0;i<25;i++){
+    let v=document.createElement("div");
+    v.className="virus";
+    v.innerHTML="☣";
+    v.style.left=Math.random()*window.innerWidth+"px";
+    v.style.top=Math.random()*window.innerHeight+"px";
+    document.body.appendChild(v);
+  }
+}
+
+// popup spam
+function spamPopup(){
+  let p=document.createElement("div");
+  p.className="popup";
+  p.innerHTML="⚠ EXIT BLOCKED";
+  p.style.left=Math.random()*80+"%";
+  p.style.top=Math.random()*80+"%";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),1000);
+}
+
+// voice
+function speak(){
+  let msg=new SpeechSynthesisUtterance("You are idiotic virus");
+  msg.lang="en-US";
+  msg.rate=0.8;
+  speechSynthesis.speak(msg);
+}
+
+function startPrank(){
+  createVirus();
+  speak();
+
+  let prank=setInterval(()=>{
+    spamPopup();
+    countdown.innerHTML="System unlock in "+time+" seconds...";
+    time--;
+
+    if(time < 0){
+      clearInterval(prank);
+      speechSynthesis.cancel();
+      document.getElementById("final").style.display="block";
+      countdown.innerHTML="😂 KENA PRANK 😂";
+    }
+  },1000);
+}
+</script>
+
+</body>
+</html>
+
+Ini nampak macam tak boleh keluar, tapi lepas 10 saat akan keluar “PRANK BY ZUL” 😈
